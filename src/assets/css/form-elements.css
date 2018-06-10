@@ -1,5 +1,6 @@
 
 input[type="text"], 
+.contact-form select,
 textarea, 
 textarea.form-control {
     margin: 0;
@@ -18,6 +19,7 @@ textarea.form-control {
 }
 
 input[type="text"]:focus, 
+select:focus, 
 textarea:focus, 
 textarea.form-control:focus {
 	outline: 0;
