@@ -20,6 +20,18 @@ const appRoutes: Routes = [
   { path: 'Company', component: CompanyComponent },
 ];
 
+
+
+/*
+
+form do FRONT
+tratar erro no send do form FRONT
+Listagem FRONT
+
+detalhes nas listagem FRONT
+
+*/
+
 @NgModule({
   declarations: [
     AppComponent,
