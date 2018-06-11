@@ -8,10 +8,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
 import { AllCompanyComponent } from './all-company/all-company.component';
 import { CompanyComponent } from './company/company.component';
-import { CoinTypeService } from './services/coinType.service';
+import { CoinTypeService } from './services/coin.type.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APIInterceptor } from './Infra/Interceptor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CnpjService } from './services/cnpj.service';
+import { CompanyService } from './services/company.service';
+import { ApiService } from './services/api.service';
 
 const appRoutes: Routes = [
   // { path: '/', component: AppComponent },
@@ -45,12 +48,17 @@ detalhes nas listagem FRONT
     HttpClientModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [CoinTypeService, 
+  providers: [
+    CoinTypeService,
+    CnpjService,
+    CompanyService,
+    ApiService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: APIInterceptor,

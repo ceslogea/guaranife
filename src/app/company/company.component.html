@@ -1,76 +1,68 @@
 <!-- Page Title -->
 <div class="page-title-container">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-10 col-sm-offset-1 page-title wow fadeIn">
-          <span aria-hidden="true" class="icon_mail"></span>
-          <h1>Cadastre sua empresa /</h1>
-          <p>Utilize o CNPJ para facilitar o cadastro</p>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 page-title wow fadeIn">
+        <span aria-hidden="true" class="icon_mail"></span>
+        <h1>Cadastre sua empresa /</h1>
+        <p>Utilize o CNPJ para facilitar o cadastro</p>
       </div>
     </div>
   </div>
-  <form [formGroup]="heroForm">
+</div>
 
-      {{diagnostic}}
-  <!-- Contact Us -->
-  <div class="contact-us-container">
-    <div class="container">
-      <div class="row">
-  
-        <div class="col-sm-7 contact-form wow fadeInLeft">
+<div class="contact-us-container">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-7 contact-form wow fadeInLeft">
+        <form [formGroup]="mainForm" novalidate>
           <h3>Dados da Empresa</h3>
-          <!-- <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. 
-                      Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <a href="">suscipit lobortis</a> 
-                      nisl ut aliquip ex ea commodo consequat.
-                    </p> -->
-          <form role="form" action="assets/contact.php" method="post">
-            <div class="form-group">
-              <label for="contact-name">CNPJ</label>
-              <input  required [(ngModel)]="model.name" name="name" type="text" name="name" placeholder="Digite um CNPJ..." class="contact-name form-control" id="contact-name">
-              <button type="submit" class="btn">Buscar dados pelo CNPJ</button>
-            </div>
-            <div class="form-group">
-              <label for="contact-email">E-mail</label>
-              <input type="text" name="email" placeholder="Digite um e-mail..." class="contact-email form-control" id="contact-email">
-            </div>
-            <div class="form-group">
-              <label for="contact-subject">Nome da Empresa</label>
-              <input type="text" name="subject" placeholder="Nome da empresa..." class="contact-name form-control" id="contact-subject">
-            </div>
-            <div class="form-group">
-                <label for="contact-subject">Moeda Utilizada</label>
-                <select  required type="text" name="subject" placeholder="Moeda Utilizada pela empresa..." class="select form-control" id="contact-subject">
-                    <option *ngFor="let c of coins" [value]="c.name">{{c.name}}</option>
+          <div class="form-group">
+            <label>CNPJ</label>
+            <input formControlName="cnpj" type="text" placeholder="Digite um CNPJ..." class="form-control">
+            <button type="button" (click)="searchByCnpj()" class="btn">Buscar dados pelo CNPJ</button>
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input formControlName="email" type="text" name="email" placeholder="Digite um e-mail..." class="form-control" autofocus>
+          </div>
+          <div class="form-group">
+            <label>Nome da Empresa</label>
+            <input formControlName="nome" type="text" placeholder="Nome da empresa..." class="form-control" autofocus>
+          </div>
+          <div class="form-group">
+              <label>Tipo de moeda</label>
+              <select formControlName="code">
+                  <option *ngFor="let coint of cointypes" value={{coint.code}}>
+                    {{coint.name}}
+                  </option>
                 </select>
             </div>
             <h3>Dados do Endenreço da Empresa</h3>
             <div class="form-group">
-              <label for="contact-message">CEP</label>
-              <input type="text" name="subject" placeholder="CEP da empresa..." class="contact-subject form-control" id="contact-subject">
-              <button type="submit" class="btn">Buscar dados pelo CEP</button>
+              <label>CEP</label>
+              <input formControlName="cep" type="text" placeholder="CEP da empresa..." class="form-control">
             </div>
             <div class="form-group">
-              <label for="contact-message">Cidade</label>
-              <input type="text" name="subject" placeholder="Cidade da empresa..." class="contact-subject form-control" id="contact-subject">
+              <label>Cidade</label>
+              <input formControlName="uf" type="text" placeholder="Cidade da empresa..." class="form-control">
             </div>
             <div class="form-group">
-              <label for="contact-message">Logradouro</label>
-              <input type="text" name="subject" placeholder="Logradouro da empresa..." class="contact-subject form-control" id="contact-subject">
+              <label for="">Logradouro</label>
+              <input formControlName="logradouro" type="text" placeholder="Logradouro da empresa..." class="form-control">
             </div>
             <div class="form-group">
-              <label for="contact-message">Bairro</label>
-              <input type="text" name="subject" placeholder="Bairro da empresa..." class="contact-subject form-control" id="contact-subject">
+              <label>Bairro</label>
+              <input formControlName="bairro" type="text" placeholder="Bairro da empresa..." class="form-control">
             </div>
             <div class="form-group">
-              <label for="contact-message">Informação adicional</label>
-              <textarea name="message" placeholder="Informação adicional da empresa..." class="contact-message form-control" id="contact-message"></textarea>
+              <label>Informação adicional</label>
+              <textarea formControlName="complemento" name="message" placeholder="Informação adicional da empresa..." class="contact-message form-control"></textarea>
             </div>
-            <button type="submit" class="btn">Cadastrar</button>
-          </form>
-        </div>
+            <button type="button" class="btn" [disabled]="mainForm.invalid" (click)="create()">Cadastrar</button>
+        </form>
       </div>
     </div>
   </div>
-</form>
+</div>
