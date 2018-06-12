@@ -15,6 +15,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CnpjService } from './services/cnpj.service';
 import { CompanyService } from './services/company.service';
 import { ApiService } from './services/api.service';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { NgProgressHttpClientModule } from '@ngx-progressbar/http-client';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ToastrServices } from './services/toastr.service';
 
 const appRoutes: Routes = [
   // { path: '/', component: AppComponent },
@@ -22,8 +29,6 @@ const appRoutes: Routes = [
   { path: 'AllCompany', component: AllCompanyComponent },
   { path: 'Company', component: CompanyComponent },
 ];
-
-
 
 /*
 
@@ -46,8 +51,12 @@ detalhes nas listagem FRONT
   ],
   imports: [
     HttpClientModule,
+    // NgProgressModule.forRoot(),
+    // NgProgressHttpModule,
     BrowserModule,
     FormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
@@ -55,6 +64,7 @@ detalhes nas listagem FRONT
     )
   ],
   providers: [
+    ToastrServices,
     CoinTypeService,
     CnpjService,
     CompanyService,

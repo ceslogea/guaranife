@@ -6,6 +6,8 @@ import { ICompany } from '../Models/ICompany';
 import { Observable } from 'rxjs/Observable';
 import { Company } from '../Models/Company';
 import { CompanyService } from '../services/company.service';
+import { ToastrServices } from '../services/toastr.service';
+
 
 @Component({
   selector: 'app-company',
@@ -35,23 +37,33 @@ export class CompanyComponent implements OnInit {
   // public model = new Company();
   // public CompanyCoinType: null;
   // public coins: Array<any>;
-  constructor(private _coinService: CoinTypeService, private _conpjservice: CnpjService, private _companyService: CompanyService) { }
+  constructor(private _coinService: CoinTypeService, private _conpjservice: CnpjService,
+    private _companyService: CompanyService, private toastrService: ToastrServices) { }
 
   ngOnInit() {
     this.createForm();
     this.cointypes = [];
     this._coinService.get().subscribe(res => {
-      Object.keys(res).forEach(key => this.cointypes.push(res[key]));
+      if (this.toastrService.checkErrorsAjax(res))
+        Object.keys(res).forEach(key => this.cointypes.push(res[key]));
     });
   }
 
   searchByCnpj() {
-    this._conpjservice.get(this.mainForm.value.cnpj).subscribe(res => {
-      this.setCompany(res);
-    });
+    this._conpjservice.get(this.mainForm.value.cnpj).subscribe(
+      data => {
+        this.setCompany(data);
+        this.toastrService.showSuccess('Dados recuperados via CNPJ com sucesso!');
+      },
+      error => this.toastrService.checkErrorsAjax(error, 'Verifique se o campo CNPJ esta preenchido e se o formato esta correto')
+    );
   }
 
   create(createNew: boolean) {
+    console.log('a')
+    this.validateAllFormFields(this.mainForm);
+    // if (this.mainForm.invalid)
+    //   return;
     const seila = this.getValue();
     const company = {
       cnpj: this.cnpj.value,
@@ -68,10 +80,17 @@ export class CompanyComponent implements OnInit {
       currentRootCoinValues: this.cointypes.filter(r => r.code === seila.code)[0]
     };
 
-    this._companyService.create(company);
-    if (createNew) {
-      this.resetModel();
-    }
+    this._companyService.create(company).subscribe(
+      data => {
+        if(data.error){
+          this.toastrService.checkErrorsAjax(data)
+          return;
+        }
+        this.toastrService.showSuccess('Dados salvos com sucesso!');
+        this.resetModel();
+      },
+      error => this.toastrService.checkErrorsAjax(error)
+    );
   }
 
   getValue(): any {
@@ -141,6 +160,26 @@ export class CompanyComponent implements OnInit {
 
       code: this.code
     });
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    let fields = [];
+    let code = 'Tipo de moeda';
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        if (control.invalid)
+          if (field === 'code') //gambis....
+            fields.push(` ${code}`)
+          else
+            fields.push(` ${field}`)
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+    if(fields.length)
+      this.toastrService.showError(fields.toString(), `Campos obrigatórios:`);
   }
 
 }

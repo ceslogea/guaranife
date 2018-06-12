@@ -26,5 +26,14 @@ export class ApiService {
       console.log(error);
     });
   }
+
+  private handleError(error: any) {
+    console.log(error)
+    if (error.status === 401) {
+        throw error;
+    } else {
+        throw error;
+    }
+  }
 }
 

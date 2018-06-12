@@ -9,14 +9,8 @@ export class CompanyService {
 
   constructor(private api: ApiService) { }
 
-  create(company: any) {
-    this.api.post('company', company).subscribe(response => {
-      if (response.error) {
-        this.api.showError(response.error);
-      } else {
-
-      }
-    });
+  create(company: any): Observable<any> {
+    return this.api.post('company', company)
   }
 
   get(): Observable<any> {
