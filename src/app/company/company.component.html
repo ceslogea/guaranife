@@ -1,0 +1,68 @@
+<!-- Page Title -->
+<div class="page-title-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 page-title wow fadeIn">
+        <span aria-hidden="true" class="icon_profile"></span>
+        <h1>Cadastre sua empresa /</h1>
+        <p>Utilize o CNPJ para facilitar o cadastro</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-us-container">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-7 contact-form wow fadeInLeft">
+        <form [formGroup]="mainForm" novalidate>
+          <h3>Dados da Empresa</h3>
+          <div class="form-group required">
+            <label class="control-label">CNPJ</label>
+            <input formControlName="cnpj" type="text" placeholder="Digite um CNPJ..." class="form-control">
+            <button type="button" (click)="searchByCnpj()" class="btn">Buscar dados pelo CNPJ</button>
+          </div>
+          <div class="form-group required">
+            <label class="control-label">E-mail</label>
+            <input formControlName="email" type="text" name="email" placeholder="Digite um e-mail..." class="form-control" autofocus>
+          </div>
+          <div class="form-group required">
+            <label class="control-label">Nome da Empresa</label>
+            <input formControlName="nome" type="text" placeholder="Nome da empresa..." class="form-control" autofocus>
+          </div>
+          <div class="form-group required">
+              <label class="control-label">Tipo de moeda</label>
+              <select formControlName="code">
+                  <option *ngFor="let coint of cointypes" value={{coint.code}}>
+                    {{coint.name}}
+                  </option>
+                </select>
+            </div>
+            <h3>Dados do Endenreço da Empresa</h3>
+            <div class="form-group required">
+              <label class="control-label">CEP</label>
+              <input formControlName="cep" type="text" placeholder="CEP da empresa..." class="form-control">
+            </div>
+            <div class="form-group required">
+              <label class="control-label">Cidade</label>
+              <input formControlName="uf" type="text" placeholder="Cidade da empresa..." class="form-control">
+            </div>
+            <div class="form-group required">
+              <label class="control-label">Logradouro</label>
+              <input formControlName="logradouro" type="text" placeholder="Logradouro da empresa..." class="form-control">
+            </div>
+            <div class="form-group required">
+              <label class="control-label">Bairro</label>
+              <input formControlName="bairro" type="text" placeholder="Bairro da empresa..." class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="control-label">Informação adicional</label>
+              <textarea formControlName="complemento" name="message" placeholder="Informação adicional da empresa..." class="contact-message form-control"></textarea>
+            </div>
+            <button type="button" class="btn" (click)="create()">Cadastrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

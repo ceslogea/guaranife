@@ -1,0 +1,54 @@
+  
+  <!-- Page Title -->
+<div class="page-title-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 page-title wow fadeIn">
+          <span aria-hidden="true" class="icon_tools"></span>
+          <h1>Empresas cadastradas /</h1>
+          <p>Utilize o botão para visualizar a cotação atual</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <table class="table">
+    <thead>
+      <td>Nome</td>
+      <td>CNPJ</td>
+      <td>Email</td>
+      <td>Cidade</td>
+      <td></td>
+    </thead>
+    <tbody>
+       <ng-container *ngFor="let company of companyes">
+        <tr>
+          <td>{{company.nome}}</td>
+          <td>{{company.cnpj}}</td>
+          <td>{{company.email}}</td>
+          <td>{{company.address.uf}}</td>
+          <td (click)="company.showinfo = !company.showinfo"><span aria-hidden="true" class="icon_mail"></span></td>
+        </tr>
+        <tr>
+          <td colspan="5" [hidden]="!company.showinfo">
+            <div class="row col-sm-12">
+                <div class="col-sm-6"><span style="text-align: left;"> Moeda Atual: {{company.currentRootCoinValues.name}} </span></div>
+                <div class="col-sm-6"><span style="text-align: left;"> High: {{company.currentRootCoinValues.high}} </span></div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6"><span style="text-align: left;"> Low: {{company.currentRootCoinValues.low}} </span></div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6"><span style="text-align: left;"> Bid: {{company.currentRootCoinValues.bid}} </span></div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6"><span style="text-align: left;"> Ask: {{company.currentRootCoinValues.ask}} </span></div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6"><span style="text-align: left;"> PctChange: {{company.currentRootCoinValues.pctChange}} </span></div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6"><span style="text-align: left;">Data cotação: {{company.currentRootCoinValues.timestamp | date: 'd/MM/yyyy, h:mm a'}}</span></div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  

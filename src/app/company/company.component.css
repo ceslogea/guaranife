@@ -1,0 +1,8 @@
+.is-valid {
+    color: #000 !important;
+}
+
+.form-group.required .control-label:after {
+    content:"*";
+    color:red;
+  }

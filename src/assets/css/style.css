@@ -620,6 +620,7 @@ footer {
 }
 
 .contact-form input[type="text"] { width: 95%; height: 34px; }
+.contact-form select { width: 95%; height: 34px; }
 .contact-form textarea { width: 95%; height: 170px; padding-top: 8px; padding-bottom: 8px; }
 .contact-form label { font-weight: 400; }
 .contact-form label .error-label { font-style: italic }
